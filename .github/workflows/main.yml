@@ -3,19 +3,18 @@ name: .NET Core
 on:
   push:
     branches: [ master ]
-
+    
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        dotnet: [ '2.2.103', '3.0', '3.1.x' ]
+    name: Dotnet ${{ matrix.dotnet }} sample
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.301
-    - name: Install dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build
+      - uses: actions/checkout@v2
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ matrix.dotnet }}
+      - run: dotnet build --configuration Release ./Application/Application.csproj   
