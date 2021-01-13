@@ -18,7 +18,7 @@ jobs:
         id: mycache
         uses: actions/cache@v2
         with:
-          path: ./obj
+          path: ./Application/obj
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
