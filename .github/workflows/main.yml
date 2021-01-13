@@ -23,7 +23,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
       - name: Install dependencies
-        if: steps.mycache.outputs.hit != 'true'
+        if: steps.mycache.outputs.cache-hit != 'true'
         run: dotnet restore
       - name: Build
         run: dotnet build --configuration Release --no-restore ./Application/Application.csproj
