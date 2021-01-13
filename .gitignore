@@ -24,7 +24,7 @@ Bin/
 obj/
 Obj/
 
-# Visual Studio cache/options directory
+# Visual Studio 2015 cache/options directory
 .vs/
 .vscode/
 

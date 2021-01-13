@@ -1,6 +1,6 @@
 using System;
 
-namespace Application
+namespace Devops.Web
 {
     public class WeatherForecast
     {
