@@ -33,5 +33,5 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v1
         with:
-          name: Publish
-          path: publish
+          name: publish
+          path: Application/bin/Debug/netcoreapp3.1/publish
