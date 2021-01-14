@@ -2,7 +2,7 @@ name: .NET Core
 
 on:
   push:
-    branches: [master]
+    branches: [devlopment]
 
 jobs:
   build:
@@ -28,7 +28,7 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore ./Application/Application.csproj
       - name: Publish
-        run: dotnet publish -c Release
+        run: dotnet publish
       - name: Archive build
         if: success()
         uses: actions/upload-artifact@v1
