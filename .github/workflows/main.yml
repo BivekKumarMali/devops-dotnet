@@ -29,3 +29,9 @@ jobs:
         run: dotnet build --configuration Release --no-restore ./Application/Application.csproj
       - name: Publish
         run: dotnet publish
+      - name: Archive build
+        if: success()
+        uses: actions/upload-artifact@v1
+        with:
+          name: Publish
+          path: publish
