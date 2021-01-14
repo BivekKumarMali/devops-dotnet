@@ -34,4 +34,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: publish
-          path: Application/bin/Debug/netcoreapp3.1/publish
+          path: Application/bin/Release/netcoreapp3.1/publish
