@@ -45,4 +45,4 @@ jobs:
         uses: cschleiden/webdeploy-action@v1
         with:
           webSiteName: 'http://ec2-3-129-92-50.us-east-2.compute.amazonaws.com/'
-          package: ${{ format('{0}devops-dotnet/Application/bin/Release/netcoreapp3.1/publish', runner.workspace ) }}
+          package: ./Application/bin/Release/netcoreapp3.1/publish
