@@ -42,10 +42,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
       - name: Aws Deploy
-        id: deploy
-        uses: webfactory/create-aws-codedeploy-deployment@v0.2.2
-      - uses: peter-evans/commit-comment@v1
+        uses: cschleiden/webdeploy-action@v1
         with:
-            token: ${{ secrets.GITHUB_TOKEN }}
-            body: |
-                @${{ github.actor }} this was deployed as [${{ steps.deploy.outputs.deploymentId }}](https://console.aws.amazon.com/codesuite/codedeploy/deployments/${{ steps.deploy.outputs.deploymentId }}?region=eu-central-1) to group `${{ steps.deploy.outputs.deploymentGroupName }}`.
+          webSiteName: 'My IIS Site'
+          package: ${{ format('{0}\dist', runner.workspace) }}
