@@ -45,4 +45,4 @@ jobs:
         uses: cschleiden/webdeploy-action@v1
         with:
           webSiteName: 'My IIS Site'
-          package: ${{ format('{0}devops-dotnet/Application/bin/Release/netcoreapp3.1/publish', runner.workspace) }}
+          package: ${{ format('{0}devops-dotnet/Application/bin/Release/netcoreapp3.1/publish', ./Application/obj) }}
