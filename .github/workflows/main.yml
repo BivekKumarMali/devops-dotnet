@@ -46,3 +46,6 @@ jobs:
         with:
           webSiteName: 'http://ec2-3-129-92-50.us-east-2.compute.amazonaws.com/'
           package: /home/runner/work/devops-dotnet/devops-dotnet/Application/bin/Release/netcoreapp3.1/publish/
+      - name: Build-Test-MSDeploy
+        uses: RahulParmarRP/dotnet-build-test-msdeploy@v0.1
+
