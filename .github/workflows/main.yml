@@ -31,13 +31,13 @@ jobs:
         run: dotnet publish -c Release
       - name: Archive build
         if: success()
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: publish
           path: Application/bin/Release/netcoreapp3.1/publish
       - name: List Files
         shell: cmd
-        run: dir
+        run: ls D:/a/devops-dotnet
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v14
         with:
