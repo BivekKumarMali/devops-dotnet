@@ -27,14 +27,8 @@ jobs:
         run: dotnet build --configuration Debug --no-restore ./Application/Application.csproj
       - name: Merge
         if: success()
-        uses: buildsville/simple-merge@v1
-        id: merge
+        uses: plm9606/automerge_actions@1.2.2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          method: 'squash'
-          labels: '[ "foo", "bar" ]'
-          title: 'Merge PR'
-          message: 'Merge to devlopment'
-      - name: result
-        run: |
-          echo "result: ${{ steps.merge.outputs.result }}"
+          reviewers-number: 0
+          auto-delete: false
+          github-token: ${{ secrets.GITHUB_TOKEN }}
