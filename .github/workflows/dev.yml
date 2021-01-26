@@ -1,4 +1,4 @@
-name: Build and Merge
+name: Build and Merge Check
 on:
   pull_request:
     branches: [devlopment]
