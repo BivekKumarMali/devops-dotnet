@@ -32,7 +32,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           method: 'merge'
-          labels: '[ "" ]'
+          labels: '[ "automerge" ]'
           title: 'commit title'
           message: 'commit message'
       - name: result
