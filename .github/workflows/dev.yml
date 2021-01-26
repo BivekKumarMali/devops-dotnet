@@ -1,0 +1,48 @@
+name: Build and Merge
+on:
+  pull_request:
+    branches: [devlopment]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    env:
+      IIS_SERVER_COMPUTER_NAME: ${{ secrets.IIS_SERVER_COMPUTER_NAME }}
+      IIS_WEBSITE_NAME: ${{ secrets.IIS_WEBSITE_NAME }}
+      IIS_SERVER_USERNAME: ${{ secrets.IIS_SERVER_USERNAME }}
+      IIS_SERVER_PASSWORD: ${{ secrets.IIS_SERVER_PASSWORD }}
+      RECYCLE_APP_NAME: ${{ secrets.RECYCLE_APP_NAME }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.301
+      - name: Caching
+        id: mycache
+        uses: actions/cache@v2
+        with:
+          path: ./Application/obj
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+      - name: Install dependencies
+        if: steps.mycache.outputs.cache-hit != 'true'
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Debug --no-restore ./Application/Application.csproj
+      - name: Merge
+        if: success()
+        uses: buildsville/simple-merge@v1
+        id: merge
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          method: 'squash'
+          labels: '[ "foo", "bar" ]'
+          title: 'Merge PR'
+          message: 'Merge to devlopment'
+      - name: result
+        run: |
+          echo "result: ${{ steps.merge.outputs.result }}"
