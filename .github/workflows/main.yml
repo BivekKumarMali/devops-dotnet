@@ -37,7 +37,7 @@ jobs:
           path: Application/bin/Release/netcoreapp3.1/publish
       - name: Stop Application Polling
         shell: cmd
-        run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:recycleApp -dest:recycleApp=,recycleMode="StopAppPool",ComputerName="https://18.222.145.71:8172/msdeploy.axd?site=Application",username="${{ secrets.USERNAME}}",password="${{ secrets.PASSWORD }}"'
+        run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:recycleApp -dest:recycleApp="Application",recycleMode="StopAppPool",ComputerName="https://18.222.145.71:8172/msdeploy.axd?site=Application",username="${{ secrets.USERNAME}}",password="${{ secrets.PASSWORD }}"'
       - name: IIS Deploy
         shell: cmd
         run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:contentPath="D:\a\devops-dotnet\devops-dotnet\Application\bin\Release\netcoreapp3.1\publish\" -dest:contentPath="Application",ComputerName="https://18.222.145.71:8172/msdeploy.axd?site=Application",UserName="${{ secrets.USERNAME }}",Password="${{ secrets.PASSWORD }}",AuthType="Basic"'
