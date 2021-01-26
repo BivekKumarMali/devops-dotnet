@@ -24,7 +24,7 @@ jobs:
         if: steps.mycache.outputs.cache-hit != 'true'
         run: dotnet restore
       - name: Build
-        run: dotnet build --configuration Debug --no-restore ./Application/Application.csproj
+        run: dotnet build --configuration Debug --no-restore ./Application/Application.cspro
       - name: Merge
         if: success() 
         uses: buildsville/simple-merge@v1
@@ -33,10 +33,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           method: 'merge'
           labels: '[ "automerge" ]'
-          title: 'commit title'
-          message: 'commit message'
-      - name: result
-        run: |
-          echo "result: ${{ steps.merge.outputs.result }}"
+          title: 'Merge to devlopment'
+          message: 'Merge to devlopment'
            
 
