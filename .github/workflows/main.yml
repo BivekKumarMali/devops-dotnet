@@ -47,9 +47,9 @@ jobs:
         run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:recycleApp -dest:recycleApp="${{ env.RECYCLE_APP_NAME }}",recycleMode="StopAppPool",computerName="${{env.IIS_SERVER_COMPUTER_NAME}}/msdeploy.axd?site=${{ env.IIS_WEBSITE_NAME }}",username="${{ env.IIS_SERVER_USERNAME }}",password="${{ env.IIS_SERVER_PASSWORD }}",AuthType="Basic"'
       - name: IIS Deploy
         shell: cmd
-        run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:contentPath="D:\a\devops-dotnet\devops-dotnet\Application\bin\Release\netcoreapp3.1\publish\" -dest:contentPath="Application",ComputerName="https://18.188.107.215:8172/msdeploy.axd?site=Application",UserName="${{ secrets.USERNAME }}",Password="${{ secrets.PASSWORD }}",AuthType="Basic"'
+        run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:contentPath="D:\a\devops-dotnet\devops-dotnet\Application\bin\Release\netcoreapp3.1\publish\" -dest:contentPath="${{ env.RECYCLE_APP_NAME }}",ComputerName="${{env.IIS_SERVER_COMPUTER_NAME}}/msdeploy.axd?site=${{ env.IIS_WEBSITE_NAME }}",UserName="${{ secrets.IIS_SERVER_USERNAME }}",Password="${{ secrets.IIS_SERVER_PASSWORD }}",AuthType="Basic"'
       - name: Start Application Polling
         shell: cmd
-        run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted:True -source:recycleApp -dest:recycleApp="Application",recycleMode="StartAppPool",ComputerName="https://18.188.107.215:8172/msdeploy.axd?site=Application",UserName="${{ secrets.USERNAME }}",Password="${{ secrets.PASSWORD }}",AuthType="Basic"'
+        run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted:True -source:recycleApp -dest:recycleApp="${{ env.RECYCLE_APP_NAME }}",recycleMode="StartAppPool",ComputerName="${{env.IIS_SERVER_COMPUTER_NAME}}/msdeploy.axd?site=${{ env.IIS_WEBSITE_NAME }}",UserName="${{ secrets.IIS_SERVER_USERNAME }}",Password="${{ secrets.IIS_SERVER_PASSWORD }}",AuthType="Basic"'
 
   
