@@ -33,10 +33,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           method: 'merge'
           labels: '[ "automerge" ]'
-          title: 'commit title'
-          message: 'commit message'
-      - name: result
-        run: |
-          echo "result: ${{ steps.merge.outputs.result }}"
+          title: 'Merge to devlopment'
+          message: 'Merge to devlopment'
            
 
