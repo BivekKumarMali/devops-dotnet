@@ -30,5 +30,4 @@ jobs:
         uses: plm9606/automerge_actions@1.2.2
         with:
           reviewers-number: 0
-          auto-delete: false
           github-token: ${{ secrets.GITHUB_TOKEN }}
