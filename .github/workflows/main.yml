@@ -35,13 +35,11 @@ jobs:
         with:
           name: publish
           path: Application/bin/Release/netcoreapp3.1/publish
-      - name: Download build
-        uses: actions/download-artifact@v2
-        with:
-          name: publish
-      - name: List Files
+      - name: Zip Folder
         shell: cmd
-        run: 7z a -tzip {publish.zip} {D:\a\devops-dotnet\devops-dotnet\} 
+        run:  |
+            cd D:\a\devops-dotnet\devops-dotnet\Application\bin\Release\netcoreapp3.1
+            7z a -tzip {publish.zip} {publish} 
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v14
         with:
