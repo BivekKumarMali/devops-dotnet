@@ -35,19 +35,24 @@ jobs:
         with:
           name: publish
           path: Application/bin/Release/netcoreapp3.1/publish
-      - name: Deploy to EB
-        uses: actions/checkout@master
-      - name: Deploy to AWS Elastic Beanstalk
-        uses: Amraneze/aws-beanstalk-deploy@master
+      - name: Download build
+        uses: actions/download-artifact@v2
         with:
-          region: us-east-2
-          environment_name: Dotnetapplication-env
-          application_name: dotnetapplication
+          name: publish
+      - name: Zip Folder
+        shell: cmd
+        run: |
+            7z a -tzip publish.zip ./ 
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v14
+        with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          s3_bucket_name: elasticbeanstalk-us-east-2-360514716722
-          s3_file_path: D:\a\devops-dotnet\devops-dotnet\Application\bin\Release\netcoreapp3.1\publish
-          ebs_version_label: git-deploy
+          application_name: dotnetapplication
+          environment_name: Dotnetapplication-env
+          version_label: 12345
+          region: us-east-2
+          deployment_package: D:\a\devops-dotnet\publish.exe
       - name: IIS Deploy
         shell: cmd
         run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:contentPath="D:\a\devops-dotnet\devops-dotnet\Application\bin\Release\netcoreapp3.1\publish\" -dest:contentPath="Application",ComputerName="https://18.222.145.71:8172/msdeploy.axd?site=Application",UserName="${{ secrets.USERNAME }}",Password="${{ secrets.PASSWORD }}",AuthType="Basic"'
