@@ -42,7 +42,8 @@ jobs:
       - name: Zip Folder
         shell: cmd
         run: |
-            7z a -tzip publish.zip ./ 
+            7z a -tzip publish.zip ./
+            ls
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v14
         with:
@@ -52,7 +53,7 @@ jobs:
           environment_name: Dotnetapplication-env
           version_label: 12345
           region: us-east-2
-          deployment_package: D:\a\devops-dotnet\publish.exe
+          deployment_package: publish.exe
       - name: IIS Deploy
         shell: cmd
         run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:contentPath="D:\a\devops-dotnet\devops-dotnet\Application\bin\Release\netcoreapp3.1\publish\" -dest:contentPath="Application",ComputerName="https://18.222.145.71:8172/msdeploy.axd?site=Application",UserName="${{ secrets.USERNAME }}",Password="${{ secrets.PASSWORD }}",AuthType="Basic"'
