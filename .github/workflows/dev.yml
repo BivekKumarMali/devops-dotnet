@@ -1,4 +1,4 @@
-name: Build and Merge
+name: Build and Merge Check
 on:
   pull_request:
     branches: [devlopment]
@@ -6,14 +6,6 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    
-    env:
-      IIS_SERVER_COMPUTER_NAME: ${{ secrets.IIS_SERVER_COMPUTER_NAME }}
-      IIS_WEBSITE_NAME: ${{ secrets.IIS_WEBSITE_NAME }}
-      IIS_SERVER_USERNAME: ${{ secrets.IIS_SERVER_USERNAME }}
-      IIS_SERVER_PASSWORD: ${{ secrets.IIS_SERVER_PASSWORD }}
-      RECYCLE_APP_NAME: ${{ secrets.RECYCLE_APP_NAME }}
-
     steps:
       - uses: actions/checkout@v2
       - name: Setup .NET Core
@@ -34,15 +26,14 @@ jobs:
       - name: Build
         run: dotnet build --configuration Debug --no-restore ./Application/Application.csproj
       - name: Merge
-        if: success()
+        if: success() 
         uses: buildsville/simple-merge@v1
         id: merge
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          method: 'squash'
-          labels: '[ "foo", "bar" ]'
-          title: 'Merge PR'
+          method: 'merge'
+          labels: '[ "automerge" ]'
+          title: 'Merge to devlopment'
           message: 'Merge to devlopment'
-      - name: result
-        run: |
-          echo "result: ${{ steps.merge.outputs.result }}"
+           
+
