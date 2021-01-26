@@ -41,7 +41,9 @@ jobs:
           name: publish
       - name: Zip Folder
         shell: cmd
-        run: 7z a -tzip publish.zip publish' 
+        run: |
+            ls
+            7z a -tzip publish.zip publish 
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v14
         with:
