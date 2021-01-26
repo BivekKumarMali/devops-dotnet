@@ -35,25 +35,9 @@ jobs:
         with:
           name: publish
           path: Application/bin/Release/netcoreapp3.1/publish
-      - name: Download build
-        uses: actions/download-artifact@v2
-        with:
-          name: publish
-      - name: Zip Folder
+      - name: Stop Application Polling
         shell: cmd
-        run: |
-            7z a -tzip publish.zip ./
-            ls
-      - name: Deploy to EB
-        uses: einaregilsson/beanstalk-deploy@v14
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: Application
-          environment_name: mydotnetapplication
-          version_label: ${{ github.sha }}
-          region: us-east-2
-          deployment_package: publish.zip
+        run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:recycleApp -dest:recycleApp=,recycleMode="StopAppPool",ComputerName="https://18.222.145.71:8172/msdeploy.axd?site=Application",username="${{ secrets.USERNAME}}",password="${{ secrets.PASSWORD }}"'
       - name: IIS Deploy
         shell: cmd
         run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:contentPath="D:\a\devops-dotnet\devops-dotnet\Application\bin\Release\netcoreapp3.1\publish\" -dest:contentPath="Application",ComputerName="https://18.222.145.71:8172/msdeploy.axd?site=Application",UserName="${{ secrets.USERNAME }}",Password="${{ secrets.PASSWORD }}",AuthType="Basic"'
@@ -61,6 +45,4 @@ jobs:
         shell: cmd
         run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted:True -source:recycleApp -dest:recycleApp="Application",recycleMode="StartAppPool",ComputerName="https://18.222.145.71:8172/msdeploy.axd?site=Application",UserName="${{ secrets.USERNAME }}",Password="${{ secrets.PASSWORD }}",AuthType="Basic"'
 
-      - name: Stop Application Polling
-        shell: cmd
-        run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:recycleApp -dest:recycleApp=,recycleMode="StopAppPool",ComputerName="https://18.222.145.71:8172/msdeploy.axd?site=Application",username="${{ secrets.USERNAME}}",password="${{ secrets.PASSWORD }}"'
+  
