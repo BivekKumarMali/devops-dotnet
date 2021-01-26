@@ -1,7 +1,6 @@
 name: Build and Merge Check
 on:
   pull_request:
-    types: [labeled]
     branches: [devlopment]
 
 jobs:
@@ -27,8 +26,17 @@ jobs:
       - name: Build
         run: dotnet build --configuration Debug --no-restore ./Application/Application.csproj
       - name: Merge
-        if: success()
-        uses: plm9606/automerge_actions@1.2.2
+        if: success() 
+        uses: buildsville/simple-merge@v1
+        id: merge
         with:
-          reviewers-number: 0
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          method: 'merge'
+          labels: '[ "foo", "bar" ]'
+          title: 'commit title'
+          message: 'commit message'
+      - name: result
+        run: |
+          echo "result: ${{ steps.merge.outputs.result }}"
+           
+
