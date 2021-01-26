@@ -42,7 +42,7 @@ jobs:
           method: 'squash'
           labels: '[ "foo", "bar" ]'
           title: 'Merge PR'
-          message: 'Merge to devlopment'
+          message: 'Merge to devlopment '
       - name: result
         run: |
           echo "result: ${{ steps.merge.outputs.result }}"
