@@ -42,8 +42,8 @@ jobs:
       - name: Zip Folder
         shell: cmd
         run: |
-            ls D:\a\devops-dotnet\devops-dotnet\Application\bin\Release\netcoreapp3.1
-            7z a -tzip publish.zip publish 
+            ls
+            7z a -tzip publish.zip publish D:\a\devops-dotnet\devops-dotnet\Application\bin\Release\netcoreapp3.1
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v14
         with:
