@@ -32,7 +32,7 @@ jobs:
         if: steps.mycache.outputs.cache-hit != 'true'
         run: dotnet restore
       - name: Build
-        run: dotnet build --configuration Debug --no-restore ./Application/Application.csproj
+        run: dotnet build --configuration Debug --no-restore ./Application/Application.cspro
       - name: Merge
         if: success()
         uses: buildsville/simple-merge@v1
