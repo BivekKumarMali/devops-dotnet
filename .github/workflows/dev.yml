@@ -32,7 +32,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           method: 'merge'
-          labels: '[ "foo", "bar" ]'
+          labels: '[ "" ]'
           title: 'commit title'
           message: 'commit message'
       - name: result
