@@ -1,6 +1,7 @@
 name: Build and Merge Check
 on:
   pull_request:
+    types: [labeled]
     branches: [devlopment]
 
 jobs:
