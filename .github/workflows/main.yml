@@ -51,6 +51,7 @@ jobs:
         run: |
             7z a -tzip publish.zip ./ 
             ls
+            dir /b/s *.zip
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v14
         with:
