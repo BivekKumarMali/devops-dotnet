@@ -24,7 +24,7 @@ jobs:
         if: steps.mycache.outputs.cache-hit != 'true'
         run: dotnet restore
       - name: Build
-        run: dotnet build --configuration Debug --no-restore ./Application/Application.cspro
+        run: dotnet build --configuration Debug --no-restore ./Application/Application.csproj
       - name: Webhook CheckOut
         uses: actions/checkout@master
       - name: Microsoft Teams Notification
