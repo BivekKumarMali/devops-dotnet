@@ -50,6 +50,7 @@ jobs:
         shell: cmd
         run: |
             7z a -tzip publish.zip ./ 
+            ls
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v14
         with:
