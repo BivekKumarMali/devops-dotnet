@@ -25,6 +25,16 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build --configuration Debug --no-restore ./Application/Application.csproj
+      - name: Webhook CheckOut
+        uses: actions/checkout@master
+      - name: Microsoft Teams Notification
+        uses: skitionek/notify-microsoft-teams@master
+        if: failure()
+        with:
+          webhook_url: ${{ secrets.MSTEAMS_WEBHOOK }}
+          needs: ${{ toJson(needs) }}
+          job: ${{ toJson(job) }}
+          steps: ${{ toJson(steps) }}
       - name: Merge
         if: success() 
         uses: buildsville/simple-merge@v1
