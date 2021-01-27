@@ -57,7 +57,7 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: DotNetApplication
           environment_name: Dotnetapplication-env
-          version_label: 12345
+          version_label: 1234546
           region: us-east-2
           deployment_package: publish.zip
       - name: Stop Application Polling
