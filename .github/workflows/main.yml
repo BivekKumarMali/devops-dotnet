@@ -50,6 +50,14 @@ jobs:
         shell: cmd
         run: |
             7z a -tzip publish.zip ./
+      - name: Create Version
+        uses: benjlevesque/short-sha@v1.2
+        id: short-sha
+        with:
+          length: 6
+      - run: echo $SHA
+        env: 
+          SHA: ${{ steps.short-sha.outputs.sha }}
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v14
         with:
@@ -57,7 +65,7 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: DotNetApplication
           environment_name: Dotnetapplication-env
-          version_label: 1234546
+          version_label: $SHA
           region: us-east-2
           deployment_package: publish.zip
       - name: Stop Application Polling
